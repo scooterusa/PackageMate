@@ -1,19 +1,24 @@
-FROM node:20-bullseye-slim
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+FROM node:20-bookworm-slim
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    netcat-openbsd \
-    ffmpeg \
-    libnss3 \
-    libnspr4 \
-    libatk-bridge2.0-0 \
-    libx11-xcb1 \
-    libxcb-dri3-0 \
-    libdrm2 \
-    libgbm1 \
-    libasound2 \
-    libatspi2.0-0 \
-    libgtk-3-0 \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN mkdir -p /home/node/app/node_modules \
+    && chown -R node:node /home/node/app
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       netcat-openbsd \
+       ffmpeg \
+       libnss3 \
+       libnspr4 \
+       libatk-bridge2.0-0 \
+       libx11-xcb1 \
+       libxcb-dri3-0 \
+       libdrm2 \
+       libgbm1 \
+       libasound2 \
+       libatspi2.0-0 \
+       libgtk-3-0 \
     && rm -rf /var/lib/apt/lists/*
     
 WORKDIR /home/node/app
